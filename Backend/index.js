@@ -1,17 +1,17 @@
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser');
-var cors = require('cors');
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const cors = require('cors');
 app.use(cors('*'));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-var nm = require('nodemailer');
+const nm = require('nodemailer');
 let savedOTPS = {
 
 };
-var transporter = nm.createTransport(
+const transporter = nm.createTransport(
     {
-        host: "smtp.gmail.com",
+        host: "smtp.office365.com",
         port: 587,
         secure: false,
         auth: {
@@ -29,13 +29,14 @@ app.post('/sendotp', (req, res) => {
         otp += digits[Math.floor(Math.random() * 10)];
 
     }
-    var options = {
-        from: 'yourmail@gmail.com',
+    const options = {
+        from: 'hciproject732@gmail.com',
         to: `${email}`,
         subject: "Testing node emails",
         html: `<p>Enter the otp: ${otp} to verify your email address</p>`
 
     };
+    console.log(options, req.params, req.query, req.body);
     transporter.sendMail(
         options, function (error, info) {
             if (error) {
@@ -67,6 +68,6 @@ app.post('/verify', (req, res) => {
     }
 })
 
-app.listen(4000, () => {
+app.listen(80, () => {
     console.log("started")
 })
