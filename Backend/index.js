@@ -68,6 +68,6 @@ app.post('/verify', (req, res) => {
     }
 })
 
-app.listen(80, () => {
+app.listen(4000, () => {
     console.log("started")
 })
